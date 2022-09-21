@@ -2,6 +2,8 @@
 
 <h1 style="border-bottom: 5px solid red" align="center">Articles</h1>
 
+
+
 <div id="articles">
   <% @articles.each do |article| %>
     <%= render article %>
@@ -18,3 +20,4 @@
 
 
 <%= link_to "New article", new_article_path %>
+<%= will_paginate %>
