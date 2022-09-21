@@ -1,0 +1,26 @@
+<div id="<%= dom_id user %>">
+  
+<%= link_to gravatar_for(user), user_path(user) %>
+  <p>
+    <strong>Username:</strong>
+    <%= link_to user.username, user_path(user) %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= user.email %>
+  </p>
+
+  <p>
+  <strong>Password:</strong>
+  <%= user.password_digest %>
+  </p>
+
+   <p>
+   
+    <li><small>You have <%= pluralize(user.articles.count, "article") if user.articles %></small></li>
+  </p>
+
+  
+
+</div>
