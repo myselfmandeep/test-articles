@@ -1,23 +1,18 @@
 <p style="color: green"><%= notice %></p>
-
 <h1 style="border-bottom: 5px solid red" align="center">Articles</h1>
-
-
-
 <div id="articles">
   <% @articles.each do |article| %>
-    <%= render article %>
-    <p>
-      <small>Created by: <%= link_to article.user.username, article.user if article.user %> <%= time_ago_in_words(article.created_at) %> ago </small>
-
-      <%= link_to "Show this article", article %>
-    </p>
-    <hr>
+    <% if logged_in? && current_user == article.user %>
+      <%= render article %>
+      <p>
+        <small>Created by: <%= link_to article.user.username, article.user if article.user %> <%= time_ago_in_words(article.created_at) %> ago </small>
+        <%= link_to "Show this article", article %>
+        <%= link_to "Edit", edit_article_path(article) %>
+        <%= button_to "Delete", article_path(article), method: :delete %>
+      </p>
+      <hr>
+    <% end %>
   <% end %>
 </div>
-
-
-
-
 <%= link_to "New article", new_article_path %>
 <%= will_paginate %>

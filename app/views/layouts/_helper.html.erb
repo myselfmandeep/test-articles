@@ -1,0 +1,8 @@
+<% if logged_in? %>
+  <h2 align="right">  <%= link_to "Sign out", logout_path %></h2>
+    <% else %>
+    <h2 align="right">  <%= link_to "Log in", login_path, :method => :delete %></h2>
+    <h2 align="right">  <%= link_to "Sign up", signup_path %></h2>
+
+    
+<% end %>

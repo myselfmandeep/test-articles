@@ -1,0 +1,23 @@
+<h1 align="center">Log in</h1>
+
+
+
+
+
+
+
+
+<%= form_for(:session, url: login_path) do |f| %>
+<%= f.label :email, 'Email:', style: "display: block"  %>
+    <%= f.email_field :email %>
+
+    <%= f.label :password, 'Password:', style: "display: block"%>
+    <%= f.password_field :password %>
+
+    <%= f.submit "Login", style: "display: block" %>
+    
+    
+<% end %>
+
+
+

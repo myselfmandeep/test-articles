@@ -1,13 +1,22 @@
 <p style="color: green"><%= notice %></p>
-<h1>Welcom to <%= @user.username %>'s page</h1>
-<div>
+<h1 class="welcome-heading">Welcom to <%= @user.username %>'s page</h1>
 
-</div>
+<div class="profile-area">
 <%= render @user %>
-
-<div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
   <%= link_to "Back to users", users_path %>
-
   <%= button_to "Destroy this user", @user, method: :delete %>
+</div>
+<div>
+  <% @user.articles.each do |article| %>
+    <p>
+      <strong>Title:</strong>
+      <%= article.title %>
+    </p>
+    <p>
+      <strong>Description:</strong>
+      <%= article.description %>
+    </p>
+    <hr>
+  <% end %>
 </div>
