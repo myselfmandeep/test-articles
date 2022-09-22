@@ -1,11 +1,13 @@
 <p style="color: green"><%= notice %></p>
-
 <h1 style="border-bottom: 3px solid green">Users</h1>
-
 <div id="users">
   <% @users.each do |user| %>
     <%= render user %>
-   
+    <% if logged_in? and current_user.admin? %>
+      <ul>
+        <li><%= button_to "Delete this user", user_path(user), method: :delete, data: { confirm: "Are you sure you want to delete the user and all their articles?"} %></li>
+      </ul>
+    <% end %>
     <p>
       <%= link_to "Show this user", user %>
     </p>

@@ -2,7 +2,7 @@
 <h1 style="border-bottom: 5px solid red" align="center">Articles</h1>
 <div id="articles">
   <% @articles.each do |article| %>
-    <% if logged_in? && current_user == article.user %>
+    <% if logged_in? && current_user == (article.user || current_user.admin?) %>
       <%= render article %>
       <p>
         <small>Created by: <%= link_to article.user.username, article.user if article.user %> <%= time_ago_in_words(article.created_at) %> ago </small>

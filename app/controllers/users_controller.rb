@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-  before_action :require_same_user, only: %i[edit update]
+  before_action :require_same_user, only: %i[edit update, :destroy]
+  before_action :require_admin, only: [:destroy]
 
   # GET /users or /users.json
   def index
@@ -9,6 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /users/new
@@ -51,31 +53,36 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @user = User.find(params[:id])
+    flash[:notice] = "User and all articles created by user have been deleted"
+    redirect_to users_path
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:username, :email, :password)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def require_same_user
-      if  current_user != @user
-        flash[:notice] = "You can only edit your own account"
-        redirect_to root_path
-      end
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:username, :email, :password)
+  end
+
+  def require_same_user
+    if current_user != @user and !current_user
+      flash[:notice] = "You can only edit your own account"
+      redirect_to root_path
     end
-    
-    
+  end
+
+  def require_admin
+    if logged_in? and !current_user.admin?
+      flash[:notice] = "Only admin users can perform that action"
+      redirect_to root_path
+    end
+  end
+  
+  
 end
