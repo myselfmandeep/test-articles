@@ -75,3 +75,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "rails-controller-testing"
+gem 'test-unit', '~> 3.5', '>= 3.5.3'
+
+
+

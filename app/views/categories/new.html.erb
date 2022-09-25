@@ -1,0 +1,16 @@
+<h1 align="center">Create new category</h1>
+
+<%= form_with model: @category  do |form| %>
+
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit style: "margin-top: 2vh" %>
+  </div>
+<% end %>
+
+
